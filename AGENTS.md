@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application architecture
+- Keep file parsing, cleaning, and export in browser-invoked helpers in `src/lib/sheet-cleaner.ts`; no file content may enter a server call or persistence layer.
+- Load the spreadsheet engine dynamically from browser event handlers to keep workbook processing out of SSR and reduce the initial download.
+- Keep cleaning transformations pure and test them alongside the helper so original rows remain unchanged and output rules are reproducible.
